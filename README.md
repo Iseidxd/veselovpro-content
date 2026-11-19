@@ -55,6 +55,19 @@ python3 publisher/publish_ig.py publish carousels/01-proverka-podryadchika
 
 `--dry-run` создаёт контейнеры у Instagram, но не публикует. Так проверяется, что Meta приняла все 10 картинок и подпись.
 
+## Telegram
+
+Карусель уходит в канал @veselovpro_marketing альбомом, файлы грузятся напрямую. Бот должен быть админом канала с правом публикации.
+
+```
+python3 publisher/publish_tg.py check   carousels/01-proverka-podryadchika
+python3 publisher/publish_tg.py publish carousels/01-proverka-podryadchika
+```
+
+У подписи к альбому лимит 1024 символа. Если для Telegram нужен другой текст, положи его в `caption_tg.txt` рядом с `caption.txt`.
+
+С GitHub: Actions → Publish to Telegram, секрет `TG_BOT_TOKEN`.
+
 ## Токен
 
 Живёт 60 дней. Продлевать не реже раза в 50 дней:

@@ -1,0 +1,49 @@
+name: Publish to Telegram
+
+on:
+  workflow_dispatch:
+    inputs:
+      folder:
+        description: "Папка поста, например carousels/01-proverka-podryadchika"
+        required: true
+      mode:
+        description: "check — проверить бота и канал, publish — опубликовать"
+        required: true
+        default: check
+        type: choice
+        options: [check, publish]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TG_CHAT_ID: ${{ vars.TG_CHAT_ID || '@veselovpro_marketing' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check
+        run: python3 publisher/publish_tg.py check "${{ inputs.folder }}"
+
+      - name: Publish
+        if: inputs.mode == 'publish'
+        run: python3 publisher/publish_tg.py publish "${{ inputs.folder }}"
+
+      - name: Save publish log
+        if: inputs.mode == 'publish'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ inputs.folder }}/published_tg.json"
+          git commit -m "Published to Telegram: ${{ inputs.folder }}"
+          git push
