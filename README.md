@@ -17,13 +17,13 @@ publisher/
 .github/workflows/publish-instagram.yml   публикация кнопкой на GitHub
 ```
 
-Instagram не принимает файлы, он сам скачивает слайды по ссылке. Ссылки идут через jsDelivr с привязкой к коммиту:
+Instagram не принимает файлы, он сам скачивает слайды по ссылке. Ссылки идут через raw.githubusercontent.com с привязкой к коммиту:
 
 ```
-https://cdn.jsdelivr.net/gh/Iseidxd/veselovpro-content@<коммит>/carousels/01-proverka-podryadchika/slides/01.jpg
+https://raw.githubusercontent.com/Iseidxd/veselovpro-content/<коммит>/carousels/01-proverka-podryadchika/slides/01.jpg
 ```
 
-Привязка к коммиту нужна, чтобы правка слайда задним числом не подменила картинку в уже собранном контейнере.
+Привязка к коммиту нужна, чтобы правка слайда задним числом не подменила картинку в уже собранном контейнере. Запасной вариант, CDN jsDelivr, включается строкой `URL_STYLE=jsdelivr` в `.env`.
 
 ## Новая карусель
 

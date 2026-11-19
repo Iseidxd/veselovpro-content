@@ -74,14 +74,14 @@ def git_ref():
 def public_url(rel_path, ref):
     """Ссылка на файл в репозитории.
 
-    По умолчанию jsDelivr: отдаёт image/jpeg и кэширует по коммиту,
-    поэтому правка слайда в новом коммите не подменит уже опубликованный пост.
-    URL_STYLE=raw переключает на raw.githubusercontent.com.
+    По умолчанию raw.githubusercontent.com с привязкой к коммиту: отдаёт image/jpeg,
+    а правка слайда в новом коммите не подменит картинку уже собранного поста.
+    URL_STYLE=jsdelivr переключает на CDN jsDelivr.
     """
     rel_path = urllib.parse.quote(rel_path)
-    if env("URL_STYLE", "jsdelivr") == "raw":
-        return f"https://raw.githubusercontent.com/{REPO}/{ref}/{rel_path}"
-    return f"https://cdn.jsdelivr.net/gh/{REPO}@{ref}/{rel_path}"
+    if env("URL_STYLE", "raw") == "jsdelivr":
+        return f"https://cdn.jsdelivr.net/gh/{REPO}@{ref}/{rel_path}"
+    return f"https://raw.githubusercontent.com/{REPO}/{ref}/{rel_path}"
 
 
 def load_post(folder):
