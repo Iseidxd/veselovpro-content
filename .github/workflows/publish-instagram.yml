@@ -1,0 +1,55 @@
+name: Publish to Instagram
+
+on:
+  workflow_dispatch:
+    inputs:
+      folder:
+        description: "Папка поста, например carousels/01-proverka-podryadchika"
+        required: true
+      mode:
+        description: "check — только проверка ссылок, dry-run — контейнеры без публикации, publish — опубликовать"
+        required: true
+        default: check
+        type: choice
+        options: [check, dry-run, publish]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      IG_HOST: ${{ vars.IG_HOST || 'graph.instagram.com' }}
+      CONTENT_REF: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check links
+        run: python3 publisher/publish_ig.py check "${{ inputs.folder }}"
+
+      - name: Dry run
+        if: inputs.mode == 'dry-run'
+        run: python3 publisher/publish_ig.py publish "${{ inputs.folder }}" --dry-run
+
+      - name: Publish
+        if: inputs.mode == 'publish'
+        run: python3 publisher/publish_ig.py publish "${{ inputs.folder }}"
+
+      - name: Save publish log
+        if: inputs.mode == 'publish'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ inputs.folder }}/published.json"
+          git commit -m "Published: ${{ inputs.folder }}"
+          git push
