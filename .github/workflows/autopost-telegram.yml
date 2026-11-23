@@ -1,0 +1,41 @@
+name: Autopost to Telegram
+
+# Каждый будний день в 08:37 по Москве (05:37 UTC) публикует следующую
+# карусель из очереди: первую папку в carousels/ со статусом "ready"
+# в post.json и без published_tg.json. Пустая очередь = ничего не делает.
+on:
+  schedule:
+    - cron: "37 5 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-publish
+  cancel-in-progress: false
+
+jobs:
+  autopost:
+    runs-on: ubuntu-latest
+    env:
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TG_CHAT_ID: ${{ vars.TG_CHAT_ID || '@veselovpro_marketing' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Publish next carousel
+        id: next
+        run: python3 publisher/publish_tg.py next
+
+      - name: Save publish log
+        if: steps.next.outputs.folder != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ steps.next.outputs.folder }}/published_tg.json"
+          git commit -m "Autopost Telegram: ${{ steps.next.outputs.folder }}"
+          git push

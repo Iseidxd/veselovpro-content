@@ -130,6 +130,37 @@ def cmd_publish(args):
     print(f"Опубликовано: {link or record['message_ids']}")
 
 
+def find_next():
+    """Первая по порядку карусель со статусом ready, ещё не опубликованная в Telegram."""
+    base = os.path.join(ROOT, "carousels")
+    for name in sorted(os.listdir(base)):
+        folder = os.path.join(base, name)
+        pj = os.path.join(folder, "post.json")
+        if not os.path.isfile(pj) or os.path.exists(os.path.join(folder, "published_tg.json")):
+            continue
+        with open(pj, encoding="utf-8") as f:
+            if json.load(f).get("status") == "ready":
+                return f"carousels/{name}"
+    return None
+
+
+def cmd_next(args):
+    folder = find_next()
+    if not folder:
+        print("Очередь пуста: нет каруселей со статусом ready")
+        if os.environ.get("GITHUB_OUTPUT"):
+            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                f.write("folder=\n")
+        return
+    print(f"Следующая: {folder}")
+    if os.environ.get("GITHUB_OUTPUT"):
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            f.write(f"folder={folder}\n")
+    if not args.dry_run:
+        args.folder, args.force = folder, False
+        cmd_publish(args)
+
+
 def main():
     load_env()
     p = argparse.ArgumentParser(description="Публикация карусели в Telegram-канал")
@@ -139,8 +170,10 @@ def main():
     sp = sub.add_parser("publish")
     sp.add_argument("folder")
     sp.add_argument("--force", action="store_true")
+    sp = sub.add_parser("next", help="опубликовать следующую карусель из очереди")
+    sp.add_argument("--dry-run", action="store_true")
     args = p.parse_args()
-    {"check": cmd_check, "publish": cmd_publish}[args.cmd](args)
+    {"check": cmd_check, "publish": cmd_publish, "next": cmd_next}[args.cmd](args)
 
 
 if __name__ == "__main__":
