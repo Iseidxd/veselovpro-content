@@ -78,7 +78,7 @@ def fbar(label, num, w, bg, fg="#F3F5F4"):
 def conv(p):
     return f'<span class="mono" style="font-size:34px;font-weight:700;color:{TEAL};padding-left:32px">↓ {p}</span>'
 slides[4] = page3("dark", f"""{top('Вопрос 2', 4)}
-<h2>Воронка</h2>
+<div style="display:flex;align-items:baseline;gap:28px"><h2>Воронка</h2><span class="cap" style="color:rgba(243,245,244,.6)">на примере</span></div>
 <div style="display:flex;flex-direction:column;gap:10px">
  {fbar('Переходы','1 240',100,'rgba(243,245,244,.14)')}{conv('3,7%')}
  {fbar('Заявки','46',78,'rgba(45,108,246,.55)')}{conv('41%')}
