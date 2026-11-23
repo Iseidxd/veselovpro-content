@@ -96,21 +96,23 @@ slides[1] = f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><styl
  </div>
 </div></body></html>"""
 
-# 02 Ситуация
+# 02 Ситуация, с фото
 def stat(num, txt, color):
-    return f'''<div class="card" style="display:flex;flex-direction:column;gap:12px;padding:30px">
-      <span class="mono" style="font-weight:700;font-size:84px;line-height:1;color:{color}">{num}</span>
-      <span style="font-size:34px;line-height:1.2;color:rgba(243,245,244,.8)">{txt}</span></div>'''
+    return f'''<div class="card" style="display:flex;align-items:center;gap:22px;padding:24px 30px;backdrop-filter:blur(8px)">
+      <span class="mono" style="font-weight:700;font-size:72px;line-height:1;color:{color};min-width:170px">{num}</span>
+      <span style="font-size:34px;line-height:1.2;color:rgba(243,245,244,.85)">{txt}</span></div>'''
+PHOTO2 = f"""
+<img src="img/chin.jpg" alt="" style="position:absolute;right:-60px;top:420px;width:640px;height:760px;object-fit:cover;object-position:50% 18%;filter:saturate(.85) contrast(1.05);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 45%),linear-gradient(to bottom,transparent 0%,#000 22%,#000 62%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect">"""
 slides[2] = page("dark", f"""{top('Ситуация', 2)}
 <h2>Всё выглядит<br>нормально</h2>
-<p class="body">Люди пишут, спрашивают про услугу и цену. Объявления живые.</p>
-<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
- {stat('$2,8','за заявку, ниже рынка',TEAL)}{stat('80','сообщений в месяц',TEAL)}{stat('1/20','доходит до сервиса',ORANGE)}
+<p class="body" style="max-width:560px">Люди пишут, спрашивают про услугу и&nbsp;цену. Объявления живые.</p>
+<div style="display:flex;flex-direction:column;gap:16px;width:540px">
+ {stat('$2,8','за заявку, ниже рынка',TEAL)}{stat('80','сообщений в месяц',TEAL)}{stat('1/20','доходит до&nbsp;сервиса',ORANGE)}
 </div>
-<div class="card" style="margin-top:auto;display:flex;gap:28px;align-items:center;background:linear-gradient(135deg,rgba(255,138,91,.18),rgba(255,138,91,.06));border-color:rgba(255,138,91,.4)">
+<div class="card" style="margin-top:auto;display:flex;gap:28px;align-items:center;background:linear-gradient(135deg,rgba(255,138,91,.2),rgba(10,22,19,.92));border-color:rgba(255,138,91,.4)">
  <span class="mono" style="font-weight:700;font-size:96px;line-height:1;color:{ORANGE}">5%</span>
  <span style="font-size:42px;line-height:1.25">заявок превращаются в приход клиента</span>
-</div>""", DARK_GLOWS)
+</div>""", DARK_GLOWS + PHOTO2)
 
 # 03 Воронка до
 def bar(label, num, w, bg, fg="#fff"):
@@ -189,23 +191,28 @@ slides[7] = page("light", f"""{top('После', 7)}
 </div>
 <p class="body" style="margin-top:auto">Ещё <b>4 человека</b> записаны на&nbsp;следующие даты.</p>""", LIGHT_GLOWS)
 
-# 08 Итог
+# 08 Итог, с фото
+GLOWS8 = """
+<div class="glow" style="top:-200px;left:-260px;width:1000px;height:900px;background:radial-gradient(circle,rgba(61,189,163,.32) 0%,rgba(7,16,14,0) 66%)"></div>
+<div class="glow" style="bottom:-380px;left:-280px;width:900px;height:900px;background:radial-gradient(circle,rgba(45,108,246,.36) 0%,rgba(7,16,14,0) 70%)"></div>"""
 def cmp(lab, a, b):
-    return f'''<div style="display:flex;align-items:center;gap:20px;padding:26px 0;border-top:1px solid rgba(243,245,244,.14)">
+    return f'''<div style="display:flex;align-items:center;gap:20px;padding:24px 0;border-top:1px solid rgba(243,245,244,.14)">
       <span style="font-size:38px;color:rgba(243,245,244,.8);flex:1">{lab}</span>
       <span class="mono" style="font-size:46px;color:rgba(243,245,244,.45)">{a}</span><span class="mono" style="font-size:40px;color:rgba(243,245,244,.4)">→</span>
       <span class="mono" style="font-weight:700;font-size:56px;color:{TEAL}">{b}</span></div>'''
+PHOTO8 = f"""
+<img src="img/arms.jpg" alt="" style="position:absolute;right:-40px;top:140px;width:600px;height:700px;object-fit:cover;object-position:50% 20%;filter:saturate(.85) contrast(1.05);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 48%),linear-gradient(to bottom,transparent 0%,#000 18%,#000 55%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect">"""
 slides[8] = page("dark", f"""{top('Итог', 8)}
 <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
  <span class="cap" style="color:{TEAL}">ROMI по чистой прибыли</span>
- <span class="mono" style="font-weight:700;font-size:250px;line-height:1;color:{TEAL};letter-spacing:-.02em">150%</span>
+ <span class="mono" style="font-weight:700;font-size:220px;line-height:1;color:{TEAL};letter-spacing:-.03em;text-shadow:0 10px 40px rgba(7,16,14,.9)">150%</span>
 </div>
-<p class="body">И&nbsp;это до того, как приедут оставшиеся четыре.</p>
+<p class="body" style="max-width:520px;text-shadow:0 2px 20px rgba(7,16,14,.95)">И&nbsp;это до того, как приедут оставшиеся четыре.</p>
 <div style="margin-top:auto;display:flex;flex-direction:column">
  {cmp('Доходимость до прихода', '5%', '24%')}
  {cmp('Цена клиента', '$55', '$37')}
  {cmp('Диалогов у менеджера', '80', '25')}
-</div>""", DARK_GLOWS)
+</div>""", GLOWS8 + PHOTO8)
 
 # 09 Кому поможет
 niches = ["Эвакуатор и техпомощь", "Вскрытие замков", "Ремонт техники на дому", "Замер окон и потолков",
@@ -221,6 +228,33 @@ slides[9] = page("light", f"""{top('Кому подойдёт', 9)}
  <span class="cap" style="color:{ORANGE}">Не подойдёт</span>
  <p style="font-size:34px;line-height:1.26">Интернет-магазину и&nbsp;аудитории до&nbsp;25 лет. Там оставьте чат, но&nbsp;сделайте телефон обязательным полем.</p>
 </div>""", LIGHT_GLOWS)
+
+# 10 Финал, новое фото
+def fact(n, t):
+    return f'''<div style="background:rgba(10,22,19,.75);border:1px solid rgba(243,245,244,.14);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px">
+      <span class="mono" style="font-weight:700;font-size:82px;line-height:1;color:{TEAL}">{n}</span>
+      <span style="font-size:34px;line-height:1.2;color:rgba(243,245,244,.8)">{t}</span></div>'''
+slides[10] = f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>{CSS}</style></head><body>
+<div class="s dark">
+ <div class="glow" style="bottom:-300px;right:-240px;width:960px;height:960px;background:radial-gradient(circle,rgba(61,189,163,.5) 0%,rgba(61,189,163,.15) 40%,rgba(7,16,14,0) 72%)"></div>
+ <div class="glow" style="top:-260px;left:-220px;width:760px;height:760px;background:radial-gradient(circle,rgba(45,108,246,.45) 0%,rgba(7,16,14,0) 70%)"></div>
+ <img src="img/final.jpg" alt="" style="position:absolute;right:58px;top:110px;width:360px;height:360px;border-radius:50%;object-fit:cover;object-position:38% 30%;border:3px solid rgba(61,189,163,.5);box-shadow:0 24px 70px rgba(0,0,0,.6)">
+ <div class="in" style="justify-content:space-between">
+  <div style="display:flex;flex-direction:column;gap:22px;max-width:540px">
+   <span class="cap" style="color:{TEAL};font-weight:500;letter-spacing:.1em">Кто это писал</span>
+   <h2 style="font-size:86px;line-height:.94">Владимир<br>Веселов</h2>
+   <p style="font-size:44px;line-height:1.25;color:rgba(243,245,244,.86)">Разбираю, куда утекает бюджет и&nbsp;почему заявки не&nbsp;превращаются в&nbsp;деньги.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">{fact('7','лет в перформансе')}{fact('150+','бизнесов через руки')}{fact('9','спецов в команде')}</div>
+  <div style="background:linear-gradient(135deg,rgba(61,189,163,.22),rgba(45,108,246,.18));border:1px solid rgba(243,245,244,.18);border-radius:26px;padding:40px;display:flex;flex-direction:column;gap:26px">
+   <p style="font-size:44px;line-height:1.25">Разберу вашу ситуацию в&nbsp;телеграме. Ссылка в&nbsp;шапке профиля.</p>
+   <div style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <span class="mono" style="font-size:36px;color:{TEAL}">vveselov.pro</span>
+    <span style="background:{TEAL};color:#07100E;font-weight:700;font-size:36px;padding:20px 38px;border-radius:12px;white-space:nowrap">@vv_marketing_bot</span>
+   </div>
+  </div>
+ </div>
+</div></body></html>"""
 
 only = [int(a) for a in sys.argv[1:]] or sorted(slides)
 with sync_playwright() as p:
