@@ -1,0 +1,18 @@
+{
+  "title": "Хотите 20 заявок, а канал даёт 2",
+  "type": "carousel",
+  "caption_file": "caption.txt",
+  "slides": [
+    "slides/01.jpg",
+    "slides/02.jpg",
+    "slides/03.jpg",
+    "slides/04.jpg",
+    "slides/05.jpg",
+    "slides/06.jpg",
+    "slides/07.jpg",
+    "slides/08.jpg",
+    "slides/09.jpg",
+    "slides/10.jpg"
+  ],
+  "status": "ready"
+}
