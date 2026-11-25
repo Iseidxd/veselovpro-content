@@ -68,13 +68,13 @@ python3 publisher/publish_tg.py publish carousels/01-proverka-podryadchika
 
 С GitHub: Actions → Publish to Telegram, секрет `TG_BOT_TOKEN`.
 
-## Автопостинг в Telegram
+## Автопостинг
 
-По будням в 08:37 по Москве GitHub публикует в канал следующую карусель из очереди. В очереди стоят папки в `carousels/`, у которых в `post.json` указано `"status": "ready"` и ещё нет `published_tg.json`. Порядок публикации задаёт номер в имени папки. Если очередь пуста, в этот день ничего не выходит.
+По будням в 08:37 по Москве GitHub публикует следующую карусель из очереди в Instagram и в Telegram, у каждой площадки своя очередь. В очереди стоят папки в `carousels/`, у которых в `post.json` указано `"status": "ready"` и ещё нет `published.json` (Instagram) или `published_tg.json` (Telegram). Порядок публикации задаёт номер в имени папки. Если очередь пуста, в этот день ничего не выходит.
 
 Чтобы поставить карусель в очередь, положи папку и пропиши `"status": "ready"`. Чтобы придержать её, поставь `"draft"`.
 
-Нужен секрет `TG_BOT_TOKEN` в настройках репозитория. Проверить вручную: Actions → Autopost to Telegram → Run workflow.
+Нужны секреты `IG_ACCESS_TOKEN` и `TG_BOT_TOKEN`. Площадка без секрета пропускается. Проверить вручную: Actions → Autopost → Run workflow.
 
 ## Токен
 

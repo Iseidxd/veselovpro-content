@@ -335,6 +335,36 @@ def cmd_refresh(args):
     print(data["access_token"])
 
 
+def find_next():
+    """Первая по порядку карусель со статусом ready без published.json."""
+    base = os.path.join(ROOT, "carousels")
+    for name in sorted(os.listdir(base)):
+        folder = os.path.join(base, name)
+        pj = os.path.join(folder, "post.json")
+        if not os.path.isfile(pj) or os.path.exists(os.path.join(folder, "published.json")):
+            continue
+        with open(pj, encoding="utf-8") as f:
+            if json.load(f).get("status") == "ready":
+                return f"carousels/{name}"
+    return None
+
+
+def cmd_next(args):
+    folder = find_next()
+    out = os.environ.get("GITHUB_OUTPUT")
+    if not folder:
+        print("Очередь Instagram пуста")
+        if out:
+            open(out, "a").write("folder=\n")
+        return
+    print(f"Следующая в Instagram: {folder}")
+    if out:
+        open(out, "a").write(f"folder={folder}\n")
+    if not args.dry_run:
+        args.folder, args.force = folder, False
+        cmd_publish(args)
+
+
 def main():
     load_env()
     p = argparse.ArgumentParser(description="Публикатор каруселей veselovpro в Instagram")
@@ -346,12 +376,14 @@ def main():
     sp.add_argument("folder")
     sp.add_argument("--force", action="store_true", help="публиковать, даже если есть published.json")
     sp.add_argument("--dry-run", action="store_true", help="создать контейнеры, но не публиковать")
+    sp = sub.add_parser("next", help="опубликовать следующую карусель из очереди")
+    sp.add_argument("--dry-run", action="store_true")
     sub.add_parser("whoami")
     sub.add_parser("limit")
     sub.add_parser("refresh-token")
     args = p.parse_args()
     {
-        "links": cmd_links, "check": cmd_check, "publish": cmd_publish,
+        "links": cmd_links, "check": cmd_check, "publish": cmd_publish, "next": cmd_next,
         "whoami": cmd_whoami, "limit": cmd_limit, "refresh-token": cmd_refresh,
     }[args.cmd](args)
 
