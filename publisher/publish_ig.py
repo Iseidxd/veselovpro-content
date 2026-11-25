@@ -53,8 +53,8 @@ def env(name, default=None, required=False):
 
 
 def api_base():
-    host = env("IG_HOST", "graph.instagram.com")
-    version = env("IG_API_VERSION", "v26.0")
+    host = env("IG_HOST", "graph.facebook.com")
+    version = env("IG_API_VERSION", "v27.0")
     return f"https://{host}/{version}"
 
 

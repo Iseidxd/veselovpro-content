@@ -25,8 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-      IG_USER_ID: ${{ secrets.IG_USER_ID }}
-      IG_HOST: ${{ vars.IG_HOST || 'graph.instagram.com' }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID || '17841462108620679' }}
+      IG_HOST: ${{ vars.IG_HOST || 'graph.facebook.com' }}
       CONTENT_REF: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
