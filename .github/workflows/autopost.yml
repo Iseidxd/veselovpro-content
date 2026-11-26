@@ -1,12 +1,11 @@
 name: Autopost
 
-# Каждый будний день в 08:37 по Москве (05:37 UTC) публикует следующую карусель
-# из очереди в Instagram и в Telegram. Очередь у каждой площадки своя:
+# Публикует следующую карусель из очереди в Instagram и в Telegram.
+# Запуск: каждый будний день в 08:37 по Москве cron на VPS вызывает workflow_dispatch
+# (/usr/local/bin/veselovpro-autopost). Расписание GitHub не используем: оно опаздывает на часы. Очередь у каждой площадки своя:
 # первая папка в carousels/ со статусом "ready" в post.json, ещё не вышедшая
 # на этой площадке (нет published.json или published_tg.json).
 on:
-  schedule:
-    - cron: "37 5 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
