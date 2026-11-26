@@ -43,18 +43,37 @@ slides[1] = f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><styl
 </div></body></html>"""
 
 
-# Слайды-фразы: одинаковый синий стиль
+# Слайды-фразы: общий каркас, у каждой свой фон и свой 3D-предмет
+def obj(src, style):
+    return f'<img src="img/{src}" alt="" style="position:absolute;{style};filter:drop-shadow(0 40px 60px rgba(0,0,0,.45))">'
+
+
+QV = {
+    1: dict(bg=BLUE_BG, glow="top:-260px;right:-300px;background:radial-gradient(circle,rgba(61,189,163,.45) 0%,rgba(8,22,52,0) 66%)",
+            o=obj("phone.png", "right:-110px;top:120px;width:640px;transform:rotate(9deg)"), pos="bottom"),
+    2: dict(bg="linear-gradient(165deg,#07100E 0%,#0A2A24 55%,#0F5446 100%)",
+            glow="bottom:-300px;right:-280px;background:radial-gradient(circle,rgba(255,138,91,.35) 0%,rgba(7,16,14,0) 66%)",
+            o=obj("podium.png", "right:-70px;bottom:-30px;width:660px"), pos="top"),
+    3: dict(bg="linear-gradient(200deg,#0B2763 0%,#081634 60%,#07100E 100%)",
+            glow="top:-240px;right:-240px;background:radial-gradient(circle,rgba(255,138,91,.32) 0%,rgba(8,22,52,0) 66%)",
+            o=obj("tags.png", "right:-50px;top:170px;width:520px;transform:rotate(-8deg)"), pos="bottom"),
+}
+
+
 def quote_slide(n, k, q, sub):
+    v = QV[k]
+    mt, mb = ("auto", "0") if v["pos"] == "bottom" else ("70px", "auto")
     return f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>{CSS4}</style></head><body>
-<div class="s" style="background:{BLUE_BG};color:#F3F5F4">
- <div class="glow" style="top:-300px;right:-260px;width:1000px;height:1000px;background:radial-gradient(circle,rgba(61,189,163,.4) 0%,rgba(8,22,52,0) 66%)"></div>
+<div class="s" style="background:{v['bg']};color:#F3F5F4">
+ <div class="glow" style="width:1000px;height:1000px;{v['glow']}"></div>
+ {v['o']}
  <div class="in">
   <div class="top"><span class="lab" style="background:{ORANGE};color:#081634">Фраза {k} из 3</span><span class="cnt" style="color:rgba(243,245,244,.6)">{n:02d} / 10</span></div>
-  <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+  <div style="margin-top:{mt};display:flex;flex-direction:column;gap:10px">
    <div class="osw" style="font-size:240px;line-height:.6;color:{ORANGE}">«</div>
-   <h2 style="font-size:112px;line-height:1.02">{q}</h2>
+   <h2 style="font-size:112px;line-height:1.02;text-shadow:0 6px 30px rgba(7,16,14,.6)">{q}</h2>
   </div>
-  <p class="body" style="margin-bottom:auto;color:rgba(243,245,244,.9);margin-top:20px">{sub}</p>
+  <p class="body" style="margin-bottom:{mb};color:rgba(243,245,244,.9);margin-top:20px;max-width:{'620px' if v['pos']=='top' else '100%'}">{sub}</p>
  </div>
 </div></body></html>"""
 
@@ -118,8 +137,8 @@ def opt(n, t):
     return f'''<div class="card" style="display:flex;gap:26px;align-items:flex-start;padding:34px 38px">
       <span class="mono" style="font-weight:700;font-size:56px;line-height:1;color:{TEAL}">{n}</span>
       <span style="font-size:44px;line-height:1.24">{t}</span></div>'''
-slides[8] = page4("dark", f"""{top('Конкурент', 8)}
-<h2>Видим только выдачу</h2>
+slides[8] = page4("dark", f"""{obj("binoc.png", "right:-50px;top:110px;width:400px;transform:rotate(-10deg)")}{top('Конкурент', 8)}
+<h2 style="max-width:600px">Видим только выдачу</h2>
 <p class="body">Кабинета и&nbsp;продаж конкурента у&nbsp;нас нет. Обычно за&nbsp;таким стоит одно из&nbsp;двух:</p>
 <div style="display:flex;flex-direction:column;gap:16px">
  {opt('А','Тратит фиксированные $5&nbsp;500 в&nbsp;месяц и&nbsp;не&nbsp;считает окупаемость')}
