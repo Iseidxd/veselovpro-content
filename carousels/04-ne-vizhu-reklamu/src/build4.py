@@ -24,7 +24,7 @@ def photo(src, style, mask):
 slides = {}
 
 # 01 Обложка: тёмная, фото справа
-P1 = ('<img src="img/cover.jpg" alt="" style="position:absolute;inset:0;width:1080px;height:1350px;object-fit:cover;object-position:62% 40%;filter:saturate(.9) contrast(1.05)">'
+P1 = ('<img src="img/cover.jpg" alt="" style="position:absolute;top:0;left:80px;width:1080px;height:1350px;object-fit:cover;object-position:62% 40%;filter:saturate(.9) contrast(1.05)">'
       '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,14,.92) 0%,rgba(7,16,14,.78) 38%,rgba(7,16,14,.15) 70%,rgba(7,16,14,0) 100%),'
       'linear-gradient(0deg,rgba(7,16,14,.85) 0%,rgba(7,16,14,0) 30%)"></div>')
 slides[1] = f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>{CSS4}</style></head><body>
