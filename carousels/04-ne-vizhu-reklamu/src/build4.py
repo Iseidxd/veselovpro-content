@@ -24,12 +24,12 @@ def photo(src, style, mask):
 slides = {}
 
 # 01 Обложка: тёмная, фото справа
-P1 = photo("cover.jpg", "right:-60px;top:0;width:660px;height:1350px;object-position:50% 8%",
-           "linear-gradient(to right,transparent 0%,#000 42%),linear-gradient(to bottom,transparent 0%,#000 14%,#000 70%,transparent 100%)")
+P1 = ('<img src="img/cover.jpg" alt="" style="position:absolute;inset:0;width:1080px;height:1350px;object-fit:cover;object-position:62% 40%;filter:saturate(.9) contrast(1.05)">'
+      '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,14,.92) 0%,rgba(7,16,14,.78) 38%,rgba(7,16,14,.15) 70%,rgba(7,16,14,0) 100%),'
+      'linear-gradient(0deg,rgba(7,16,14,.85) 0%,rgba(7,16,14,0) 30%)"></div>')
 slides[1] = f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>{CSS4}</style></head><body>
 <div class="s dark">
- <div class="glow" style="top:-280px;left:-260px;width:900px;height:900px;background:radial-gradient(circle,rgba(61,189,163,.38) 0%,rgba(7,16,14,0) 68%)"></div>
- <div class="glow" style="bottom:-360px;left:-200px;width:900px;height:900px;background:radial-gradient(circle,rgba(45,108,246,.34) 0%,rgba(7,16,14,0) 70%)"></div>
+ <div class="glow" style="top:-280px;left:-260px;width:900px;height:900px;background:radial-gradient(circle,rgba(61,189,163,.22) 0%,rgba(7,16,14,0) 68%)"></div>
  {P1}
  <div class="in" style="gap:0">
   <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:14px;background:rgba(243,245,244,.1);border:1px solid rgba(243,245,244,.25);border-radius:100px;padding:14px 28px">
