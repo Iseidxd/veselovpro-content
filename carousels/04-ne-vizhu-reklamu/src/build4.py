@@ -81,7 +81,7 @@ def quote_slide(n, k, q, sub):
 slides[2] = quote_slide(2, 1, "Я вбиваю запрос, а&nbsp;меня нет",
                         "Клиент искал себя вчера, даже в&nbsp;режиме инкогнито, и&nbsp;ничего не&nbsp;нашёл. Значит, реклама не&nbsp;работает?")
 slides[5] = quote_slide(5, 2, "Хочу всегда быть первым",
-                        "Можно. Только сначала посчитаем, сколько это стоит.")
+                        "Можно. Только сначала я посчитаю, сколько это стоит.")
 slides[7] = quote_slide(7, 3, "Конкурент дешевле вдвое и&nbsp;всегда первый",
                         "Клиенты уходят к&nbsp;нему, он везде выше нас.")
 
@@ -129,23 +129,23 @@ slides[6] = page4("light", f"""{top('Математика', 6)}
  {mrow('Бюджет на +20–30% заявок','×1','×2','#B8401F')}
 </div>
 <div class="blk" style="margin-top:auto">
- <p style="font-size:44px;line-height:1.25">Мы предлагаем расти постепенно и&nbsp;держать цену заявки.</p>
+ <p style="font-size:44px;line-height:1.25">Я предлагаю расти постепенно и&nbsp;держать цену заявки.</p>
 </div>""", LIGHT_GLOWS)
 
-# 08 Что мы знаем о конкуренте
+# 08 Что я знаю о конкуренте
 def opt(n, t):
     return f'''<div class="card" style="display:flex;gap:26px;align-items:flex-start;padding:34px 38px">
       <span class="mono" style="font-weight:700;font-size:56px;line-height:1;color:{TEAL}">{n}</span>
       <span style="font-size:44px;line-height:1.24">{t}</span></div>'''
-slides[8] = page4("dark", f"""{obj("binoc.png", "right:-50px;top:110px;width:400px;transform:rotate(-10deg)")}{top('Конкурент', 8)}
-<h2 style="max-width:600px">Видим только выдачу</h2>
-<p class="body">Кабинета и&nbsp;продаж конкурента у&nbsp;нас нет. Обычно за&nbsp;таким стоит одно из&nbsp;двух:</p>
+slides[8] = page4("dark", f"""{obj("binoc.png", "right:-40px;top:150px;width:360px;transform:rotate(-10deg)")}{top('Конкурент', 8)}
+<h2 style="max-width:600px">Вижу только выдачу</h2>
+<p class="body" style="max-width:640px">Кабинета и&nbsp;продаж конкурента у&nbsp;меня нет. Обычно за&nbsp;таким стоит одно из&nbsp;двух:</p>
 <div style="display:flex;flex-direction:column;gap:16px">
  {opt('А','Тратит фиксированные $5&nbsp;500 в&nbsp;месяц и&nbsp;не&nbsp;считает окупаемость')}
  {opt('Б','Отбивает дорогую заявку повторными продажами за&nbsp;год')}
 </div>
 <div style="margin-top:auto;border-radius:26px;padding:36px 40px;background:linear-gradient(135deg,rgba(61,189,163,.25),rgba(45,108,246,.18));border:1px solid rgba(243,245,244,.2)">
- <p style="font-size:44px;line-height:1.25;font-weight:600">Работаем от&nbsp;своих цифр, а&nbsp;не&nbsp;от&nbsp;чужой позиции.</p>
+ <p style="font-size:44px;line-height:1.25;font-weight:600">Я считаю от&nbsp;ваших цифр, а&nbsp;не&nbsp;от&nbsp;чужой позиции.</p>
 </div>""", DARK_GLOWS)
 
 # 09 Свои цифры за день
